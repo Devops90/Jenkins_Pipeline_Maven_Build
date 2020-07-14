@@ -1,0 +1,17 @@
+node ('Node2') {
+    stage ('checkout source code') {
+        checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Devops90/java-helloworld.git']]]
+    }
+    stage ('validate source code') {
+       sh 'mvn validate'
+    }
+    stage ('compile source code') {
+        sh 'mvn compile'
+    }
+    stage ('test source code') {
+        sh 'mvn test'
+    }
+    stage ('package source code') {
+        sh 'mvn package'
+    }
+}
